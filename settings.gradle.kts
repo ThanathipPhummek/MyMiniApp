@@ -21,4 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "My Mini App"
 include(":app")
- 
+include(":main")
