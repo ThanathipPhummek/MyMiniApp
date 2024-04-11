@@ -23,3 +23,4 @@ rootProject.name = "My Mini App"
 include(":app")
 include(":main")
 include(":miniapp1")
+include(":miniapp2")
