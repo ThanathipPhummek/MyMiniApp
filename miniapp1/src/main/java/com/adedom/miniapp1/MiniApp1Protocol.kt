@@ -1,5 +1,6 @@
 package com.adedom.miniapp1
 
+import android.app.Activity
 import android.content.Context
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
@@ -10,8 +11,9 @@ data class MiniApp1Bundle(
 ) : Parcelable
 
 interface MiniApp1Protocol {
-    fun open(context: Context, bundle: MiniApp1Bundle)
     var listener: (MiniApp1Bundle) -> Unit
+    fun open(context: Context, bundle: MiniApp1Bundle)
+    fun close(activity: Activity)
 }
 
 class MiniApp1Adapter(
@@ -23,5 +25,9 @@ class MiniApp1Adapter(
             bundle = bundle,
             protocol = this,
         )
+    }
+
+    override fun close(activity: Activity) {
+        activity.finish()
     }
 }

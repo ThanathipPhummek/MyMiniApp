@@ -36,7 +36,7 @@ internal class MiniApp1Activity : ComponentActivity() {
                         Greeting("Android : ${bundle?.message}")
                         Button(onClick = {
                             protocol?.listener?.invoke(MiniApp1Bundle("BBTV"))
-                            finish()
+                            protocol?.close(this@MiniApp1Activity)
                         }) {
                             Text(text = "Back")
                         }
