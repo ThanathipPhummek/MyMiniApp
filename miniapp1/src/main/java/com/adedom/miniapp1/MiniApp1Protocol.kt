@@ -3,6 +3,13 @@ package com.adedom.miniapp1
 import android.app.Activity
 import android.content.Context
 import android.os.Parcelable
+import androidx.compose.foundation.layout.Column
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -14,6 +21,20 @@ interface MiniApp1Protocol {
     var listener: (MiniApp1Bundle) -> Unit
     fun open(context: Context, bundle: MiniApp1Bundle)
     fun close(activity: Activity)
+
+    @Composable
+    fun MiniApp1Icon(modifier: Modifier = Modifier) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = modifier,
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.ic_android),
+                contentDescription = null,
+            )
+            Text(text = "MiniApp1")
+        }
+    }
 }
 
 class MiniApp1Adapter(
