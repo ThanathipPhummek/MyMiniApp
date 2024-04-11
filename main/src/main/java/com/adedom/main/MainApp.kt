@@ -10,11 +10,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import com.adedom.miniapp1.MiniApp1Activity
 import com.adedom.miniapp1.MiniApp1Adapter
 import com.adedom.miniapp1.MiniApp1Bundle
 import com.adedom.miniapp1.MiniApp1Protocol
-import com.adedom.miniapp2.MiniApp2Activity
 import com.adedom.miniapp2.MiniApp2Adapter
 import com.adedom.miniapp2.MiniApp2Bundle
 import com.adedom.miniapp2.MiniApp2Protocol
@@ -37,20 +35,12 @@ fun MainApp() {
             modifier = Modifier.align(Alignment.Center)
         ) {
             Button(onClick = {
-                MiniApp1Activity.open(
-                    context = context,
-                    bundle = MiniApp1Bundle("hello world"),
-                    protocol = miniApp1Protocol,
-                )
+                miniApp1Protocol.open(context, MiniApp1Bundle("hello world"))
             }) {
                 Text(text = "Mini app 1")
             }
             Button(onClick = {
-                MiniApp2Activity.open(
-                    context = context,
-                    bundle = MiniApp2Bundle("สวัสดีชาวโลก"),
-                    protocol = miniApp2Protocol,
-                )
+                miniApp2Protocol.open(context, MiniApp2Bundle("สวัสดีชาวโลก"))
             }) {
                 Text(text = "Mini app 2")
             }

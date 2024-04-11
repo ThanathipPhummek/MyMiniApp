@@ -16,7 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.adedom.miniapp2.ui.theme.MyMiniAppTheme
 
-class MiniApp2Activity : ComponentActivity() {
+internal class MiniApp2Activity : ComponentActivity() {
 
     private var bundle: MiniApp2Bundle? = null
 
@@ -64,7 +64,7 @@ class MiniApp2Activity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
+internal fun Greeting(name: String, modifier: Modifier = Modifier) {
     Text(
         text = "Hello $name!",
         modifier = modifier
@@ -73,7 +73,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
+internal fun GreetingPreview() {
     MyMiniAppTheme {
         Greeting("Android")
     }
