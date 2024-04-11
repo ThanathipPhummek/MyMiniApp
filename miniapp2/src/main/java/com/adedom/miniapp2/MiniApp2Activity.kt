@@ -1,4 +1,4 @@
-package com.adedom.myminiapp
+package com.adedom.miniapp2
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -10,10 +10,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.adedom.main.MainApp
-import com.adedom.myminiapp.ui.theme.MyMiniAppTheme
+import com.adedom.miniapp2.ui.theme.MyMiniAppTheme
 
-class MainActivity : ComponentActivity() {
+class MiniApp2Activity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -23,7 +22,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    MainApp()
+                    Greeting("Android")
                 }
             }
         }
