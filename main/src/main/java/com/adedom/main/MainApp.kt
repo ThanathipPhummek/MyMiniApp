@@ -36,12 +36,12 @@ fun MainApp() {
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             modifier = Modifier.align(Alignment.Center)
         ) {
-            miniApp1Protocol.MiniApp1Icon(
+            miniApp1Protocol.MiniAppIcon(
                 modifier = Modifier.clickable {
                     miniApp1Protocol.open(context, MiniApp1Bundle("hello world"))
                 }
             )
-            miniApp2Protocol.MiniApp2Icon(
+            miniApp2Protocol.MiniAppIcon(
                 modifier = Modifier.clickable {
                     miniApp2Protocol.open(context, MiniApp2Bundle("สวัสดีชาวโลก"))
                 }

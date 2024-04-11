@@ -23,17 +23,7 @@ interface MiniApp1Protocol {
     fun close(activity: Activity)
 
     @Composable
-    fun MiniApp1Icon(modifier: Modifier = Modifier) {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = modifier,
-        ) {
-            Icon(
-                painter = painterResource(id = R.drawable.ic_android),
-                contentDescription = null,
-            )
-            Text(text = "MiniApp1")
-        }
+    fun MiniAppIcon(modifier: Modifier = Modifier) {
     }
 }
 
@@ -50,5 +40,19 @@ class MiniApp1Adapter(
 
     override fun close(activity: Activity) {
         activity.finish()
+    }
+
+    @Composable
+    override fun MiniAppIcon(modifier: Modifier) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = modifier,
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.ic_android),
+                contentDescription = null,
+            )
+            Text(text = "MiniApp1")
+        }
     }
 }
