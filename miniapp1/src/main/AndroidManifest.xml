@@ -4,9 +4,19 @@
     <application>
         <activity
             android:name=".MiniApp1Activity"
-            android:exported="false"
+            android:exported="true"
             android:label="@string/title_activity_mini_app1"
-            android:theme="@style/Theme.MyMiniApp" />
+            android:theme="@style/Theme.MyMiniApp">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="bugaboo" />
+                <data android:host="mini-app-1" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

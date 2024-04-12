@@ -1,6 +1,6 @@
 package com.adedom.miniapp1
 
-import android.content.Context
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -18,12 +18,11 @@ import com.adedom.miniapp1.ui.theme.MyMiniAppTheme
 
 internal class MiniApp1Activity : ComponentActivity() {
 
-    private var bundle: MiniApp1Bundle? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        bundle = intent.getParcelableExtra(BUNDLE_KEY)
+        val data = intent.data
+        val send = data?.getQueryParameter("send")
 
         setContent {
             MyMiniAppTheme {
@@ -33,32 +32,19 @@ internal class MiniApp1Activity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     Column {
-                        Greeting("Android : ${bundle?.message}")
+                        Greeting("Android : $send")
                         Button(onClick = {
-                            protocol?.listener?.invoke(MiniApp1Bundle("BBTV"))
-                            protocol?.close(this@MiniApp1Activity)
+                            Intent().apply {
+                                putExtra("receive", "BBTV")
+                                setResult(Activity.RESULT_OK, this)
+                                finish()
+                            }
                         }) {
                             Text(text = "Back")
                         }
                     }
                 }
             }
-        }
-    }
-
-    companion object {
-        private const val BUNDLE_KEY = "mini-app-1"
-        private var protocol: MiniApp1Protocol? = null
-
-        fun open(
-            context: Context,
-            bundle: MiniApp1Bundle,
-            protocol: MiniApp1Protocol,
-        ) {
-            val intent = Intent(context, MiniApp1Activity::class.java)
-            intent.putExtra(BUNDLE_KEY, bundle)
-            context.startActivity(intent)
-            this.protocol = protocol
         }
     }
 }
