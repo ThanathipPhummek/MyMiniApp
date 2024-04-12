@@ -24,6 +24,9 @@ import org.koin.compose.koinInject
 fun MainApp() {
     val context = LocalContext.current
     val protocol = koinInject<MiniAppProtocol>()
+    protocol.setOnClickListener { message ->
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+    }
 
     val launcher =
         rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->

@@ -42,7 +42,7 @@ internal class MiniApp1Activity : ComponentActivity() {
                             intent.putExtra("receive", "BBTV")
                             setResult(Activity.RESULT_OK, intent)
                             finish()
-                            protocol.listener.invoke("BBTV2")
+                            protocol.listener?.invoke("BBTV2")
                         }) {
                             Text(text = "Back")
                         }

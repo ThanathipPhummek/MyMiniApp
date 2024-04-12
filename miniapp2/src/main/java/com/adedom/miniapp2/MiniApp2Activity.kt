@@ -42,7 +42,7 @@ internal class MiniApp2Activity : ComponentActivity() {
                             intent.putExtra("receive", "Ch7HD")
                             setResult(Activity.RESULT_OK, intent)
                             finish()
-                            protocol.listener.invoke("Ch7HD2")
+                            protocol.listener?.invoke("Ch7HD2")
                         }) {
                             Text(text = "Back")
                         }
