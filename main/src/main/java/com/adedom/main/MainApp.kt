@@ -17,10 +17,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import com.adedom.core.MiniAppProtocol
+import org.koin.compose.koinInject
 
 @Composable
 fun MainApp() {
     val context = LocalContext.current
+    val protocol = koinInject<MiniAppProtocol>()
 
     val launcher =
         rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -42,6 +45,7 @@ fun MainApp() {
                     Uri.parse("bugaboo://mini-app-1?send=hello world"),
                 )
                 launcher.launch(intent)
+                protocol.message = "hello world2"
             }) {
                 Text(text = "Mini app 1")
             }
@@ -52,6 +56,7 @@ fun MainApp() {
                     Uri.parse("bugaboo://mini-app-2?send=สวัสดีชาวโลก"),
                 )
                 launcher.launch(intent)
+                protocol.message = "สวัสดีชาวโลก2"
             }) {
                 Text(text = "Mini app 2")
             }

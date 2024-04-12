@@ -43,6 +43,7 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
+    implementation(project(":core"))
     implementation(project(":miniapp1"))
     implementation(project(":miniapp2"))
     testImplementation(libs.junit)
