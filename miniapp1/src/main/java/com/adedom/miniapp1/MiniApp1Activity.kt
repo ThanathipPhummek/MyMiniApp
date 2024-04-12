@@ -38,11 +38,11 @@ internal class MiniApp1Activity : ComponentActivity() {
                         Greeting("Android : $send")
                         Greeting("Android : ${protocol.message}")
                         Button(onClick = {
-                            Intent().apply {
-                                putExtra("receive", "BBTV")
-                                setResult(Activity.RESULT_OK, this)
-                                finish()
-                            }
+                            val intent = Intent()
+                            intent.putExtra("receive", "BBTV")
+                            setResult(Activity.RESULT_OK, intent)
+                            finish()
+                            protocol.listener.invoke("BBTV2")
                         }) {
                             Text(text = "Back")
                         }
