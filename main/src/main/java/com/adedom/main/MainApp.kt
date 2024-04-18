@@ -55,11 +55,24 @@ fun MainApp() {
             Button(
                 onClick = {
                     defaultValue.appName?.let { appName ->
-                        Log.d("maxmax", "MainApp: Button for app $appName clicked!")
+                        val intent = Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse(defaultValue.deeplink),
+                        )
+                        launcher.launch(intent)
                     }
                 },
                 modifier = Modifier.padding(8.dp)
             ) {
+                if (!defaultValue.icon.isNullOrBlank()) {
+                    Box(
+                        Modifier
+                            .height(40.dp)
+                            .width(40.dp).padding(4.dp)) {
+                        LoadImage(url = defaultValue.icon?:"", modifier = Modifier
+                            .fillMaxSize())
+                    }
+                }
                 Text(defaultValue.appName ?: "Default App Name")
             }
         }

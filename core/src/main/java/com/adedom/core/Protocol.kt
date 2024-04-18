@@ -16,11 +16,7 @@ internal class MiniAppAdapter : MiniAppProtocol {
     override var message: String? = null
     override var listener: ((String?) -> Unit)? = null
     override var defaultSetter: ((DefaultValue?) -> Unit)? = null
-    override var listDefault: MutableList<DefaultValue> = mutableListOf(
-        DefaultValue(icon = "default_icon_1", appName = "Default App Name 1"),
-        DefaultValue(icon = "default_icon_2", appName = "Default App Name 2"),
-        DefaultValue(icon = "default_icon_3", appName = "Default App Name 3")
-    )
+    override var listDefault: MutableList<DefaultValue> = mutableListOf()
 
     override fun setOnClickListener(listener: (String?) -> Unit) {
         this.listener = listener
@@ -35,5 +31,6 @@ internal class MiniAppAdapter : MiniAppProtocol {
 
 data class DefaultValue(
     val icon: String?,
-    val appName: String?
+    val appName: String?,
+    val deeplink: String?
 )

@@ -1,4 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <application>
+        <activity
+            android:name=".MiniApp3Activity"
+            android:exported="true"
+            android:label="@string/title_activity_mini_app3"
+            android:theme="@style/Theme.MyMiniApp">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="bugaboo" />
+                <data android:host="mini-app-3" />
+            </intent-filter>
+        </activity>
+    </application>
+
 </manifest>

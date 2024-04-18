@@ -35,13 +35,13 @@ internal class MiniApp1Activity : ComponentActivity() {
                 ) {
                     Column {
                         Greeting("Android : $send")
-                        Greeting("Android : ${protocol.message}")
+//                        Greeting("Android : ${protocol.message}")
                         Button(onClick = {
                             val intent = Intent()
                             intent.putExtra("receive", "BBTV")
                             setResult(Activity.RESULT_OK, intent)
                             finish()
-                            protocol.listener?.invoke("BBTV2")
+                            protocol.listener?.invoke("Back MiniApp1")
                         }) {
                             Text(text = "Back")
                         }

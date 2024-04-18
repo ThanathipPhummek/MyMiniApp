@@ -1,6 +1,5 @@
-package com.adedom.miniapp2
+package com.adedom.miniapp3
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -15,12 +14,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.adedom.core.MiniAppProtocol
-import com.adedom.miniapp2.ui.theme.MyMiniAppTheme
+import com.adedom.miniapp3.ui.theme.MyMiniAppTheme
 import org.koin.android.ext.android.inject
-import org.koin.compose.koinInject
 
-internal class MiniApp2Activity : ComponentActivity() {
-
+internal class MiniApp3Activity : ComponentActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -42,9 +39,9 @@ internal class MiniApp2Activity : ComponentActivity() {
                         Button(onClick = {
                             val intent = Intent()
                             intent.putExtra("receive", "Ch7HD")
-                            setResult(Activity.RESULT_OK, intent)
+                            setResult(RESULT_OK, intent)
                             finish()
-                            protocol.listener?.invoke("Back MiniApp2")
+                            protocol.listener?.invoke("Back MiniApp3")
                         }) {
                             Text(text = "Back")
                         }
@@ -52,6 +49,7 @@ internal class MiniApp2Activity : ComponentActivity() {
                 }
             }
         }
+
     }
 }
 
