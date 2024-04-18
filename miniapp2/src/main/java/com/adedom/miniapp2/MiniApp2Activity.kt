@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.adedom.core.MiniAppProtocol
 import com.adedom.miniapp2.ui.theme.MyMiniAppTheme
+import org.koin.android.ext.android.inject
 import org.koin.compose.koinInject
 
 internal class MiniApp2Activity : ComponentActivity() {
@@ -26,6 +27,8 @@ internal class MiniApp2Activity : ComponentActivity() {
         val data = intent.data
         val send = data?.getQueryParameter("send")
 
+        val protocol: MiniAppProtocol by inject()
+
         setContent {
             MyMiniAppTheme {
                 // A surface container using the 'background' color from the theme
@@ -33,7 +36,6 @@ internal class MiniApp2Activity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    val protocol = koinInject<MiniAppProtocol>()
                     Column {
                         Greeting("Android : $send")
                         Greeting("Android : ${protocol.message}")

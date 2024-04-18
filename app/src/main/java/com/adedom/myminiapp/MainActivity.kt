@@ -11,14 +11,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.adedom.main.MainApp
+import com.adedom.miniapp1.defaultValue1
+import com.adedom.miniapp2.defaultValue2
 import com.adedom.myminiapp.ui.theme.MyMiniAppTheme
 
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        defaultValue1()
+        defaultValue2()
         setContent {
             MyMiniAppTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
