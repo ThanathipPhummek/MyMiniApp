@@ -14,6 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.adedom.core.DefaultValue
 import com.adedom.core.MiniAppProtocol
 import com.adedom.miniapp1.ui.theme.MyMiniAppTheme
 import org.koin.android.ext.android.inject
@@ -28,6 +29,7 @@ internal class MiniApp1Activity : ComponentActivity() {
         val protocol: MiniAppProtocol by inject()
 
         protocol.saveLogListener("MiniApp1")
+        protocol.logCountListener(protocol.saveLog,"miniapp1")
 
         setContent {
             MyMiniAppTheme {
@@ -37,6 +39,7 @@ internal class MiniApp1Activity : ComponentActivity() {
                 ) {
                     Column {
                         Greeting("Android : $send")
+                        Text(text = "จำนวนการกด ${protocol.logCount}")
                         Button(onClick = {
                             val intent = Intent()
                             intent.putExtra("receive", "BBTV")

@@ -1,9 +1,7 @@
 package com.adedom.miniapp2
 
-import android.util.Log
 import com.adedom.core.DefaultValue
 import com.adedom.core.MiniAppProtocol
-import org.koin.android.ext.android.inject
 import org.koin.java.KoinJavaComponent.inject
 
 fun defaultValue2(){

@@ -6,7 +6,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -33,7 +32,7 @@ internal class AppLogActivity : ComponentActivity() {
 
         val protocol: MiniAppProtocol by inject()
 
-        protocol.saveLogListener("AppLog")
+        protocol.saveLogListener("Log Screen")
 
         val item : List<String> = protocol.saveLog
 
@@ -57,7 +56,7 @@ internal class AppLogActivity : ComponentActivity() {
                             intent.putExtra("receive", "Ch7HD")
                             setResult(Activity.RESULT_OK, intent)
                             finish()
-                            protocol.saveLogListener("back app log")
+                            protocol.saveLogListener("back Log Screen")
                         }, modifier = Modifier.width(300.dp).align(Alignment.BottomCenter).padding(16.dp)) {
                             Text(text = "Back")
                         }

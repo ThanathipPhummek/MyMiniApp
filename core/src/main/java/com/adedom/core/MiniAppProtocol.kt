@@ -1,0 +1,15 @@
+package com.adedom.core
+
+interface MiniAppProtocol {
+    var message: String?
+    var listener: ((String?) -> Unit)?
+    var defaultSetter: ((DefaultValue?) -> Unit)?
+    val listDefault: List<DefaultValue>
+    val saveLog: List<String>
+    var logCount: Int?
+
+    fun setOnClickListener(listener: (String?) -> Unit)
+    fun setDefaultCallback(defaultValue: DefaultValue?)
+    fun saveLogListener(log: String)
+    fun logCountListener(log: List<String>,path:String)
+}

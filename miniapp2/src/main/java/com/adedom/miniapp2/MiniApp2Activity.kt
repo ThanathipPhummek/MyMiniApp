@@ -17,7 +17,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.adedom.core.MiniAppProtocol
 import com.adedom.miniapp2.ui.theme.MyMiniAppTheme
 import org.koin.android.ext.android.inject
-import org.koin.compose.koinInject
 
 internal class MiniApp2Activity : ComponentActivity() {
 
