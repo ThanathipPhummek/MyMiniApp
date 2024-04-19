@@ -1,7 +1,5 @@
 package com.adedom.core
 
-import android.util.Log
-
 interface MiniAppProtocol {
     var message: String?
     var listener: ((String?) -> Unit)?
@@ -27,6 +25,11 @@ internal class MiniAppAdapter : MiniAppProtocol {
 
     override fun setDefaultCallback(defaultValue: DefaultValue?) {
         defaultValue?.let {
+            if (
+                defaultValue.icon?.isNotEmpty() == true &&
+                defaultValue.appName?.isNotEmpty() == true &&
+                defaultValue.deeplink?.isNotEmpty() == true
+            )
             this.listDefault.add(it)
         }
     }

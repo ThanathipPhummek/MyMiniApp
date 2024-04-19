@@ -27,9 +27,9 @@ import org.koin.compose.koinInject
 fun MainApp() {
     val context = LocalContext.current
     val protocol = koinInject<MiniAppProtocol>()
-    protocol.setOnClickListener { message ->
-        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-    }
+//    protocol.setOnClickListener { message ->
+//        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+//    }
     val item: List<DefaultValue> = protocol.listDefault
     protocol.saveLogListener("MainApp")
 
@@ -38,7 +38,7 @@ fun MainApp() {
             if (result.resultCode == Activity.RESULT_OK) {
                 val intent = result.data
                 val receive = intent?.getStringExtra("receive")
-                Toast.makeText(context, receive, Toast.LENGTH_SHORT).show()
+//                Toast.makeText(context, receive, Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -47,12 +47,16 @@ fun MainApp() {
         item.forEach { defaultValue ->
             Button(
                 onClick = {
-                    defaultValue.appName?.let { appName ->
-                        val intent = Intent(
-                            Intent.ACTION_VIEW,
-                            Uri.parse(defaultValue.deeplink),
-                        )
-                        launcher.launch(intent)
+                    try {
+                        defaultValue.appName?.let { appName ->
+                            val intent = Intent(
+                                Intent.ACTION_VIEW,
+                                Uri.parse(defaultValue.deeplink),
+                            )
+                            launcher.launch(intent)
+                        }
+                    } catch (e:Exception) {
+                        Toast.makeText(context, "something wrong", Toast.LENGTH_SHORT).show()
                     }
                 },
                 modifier = Modifier.padding(8.dp)
@@ -76,11 +80,15 @@ fun MainApp() {
     }
         Button(
             onClick = {
-                val intent = Intent(
-                    Intent.ACTION_VIEW,
-                    Uri.parse("bugaboo://app-log?send=APPLOG"),
-                )
-                launcher.launch(intent)
+                try {
+                    val intent = Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse("bugaboo://app-log?send=APPLOG"),
+                    )
+                    launcher.launch(intent)
+                } catch (e:Exception) {
+                    Toast.makeText(context, "something wrong", Toast.LENGTH_SHORT).show()
+                }
             },
             modifier = Modifier
                 .width(300.dp)

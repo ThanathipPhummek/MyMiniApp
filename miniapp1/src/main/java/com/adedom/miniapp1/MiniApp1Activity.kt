@@ -37,7 +37,6 @@ internal class MiniApp1Activity : ComponentActivity() {
                 ) {
                     Column {
                         Greeting("Android : $send")
-//                        Greeting("Android : ${protocol.message}")
                         Button(onClick = {
                             val intent = Intent()
                             intent.putExtra("receive", "BBTV")
