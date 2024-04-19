@@ -27,6 +27,8 @@ internal class MiniApp1Activity : ComponentActivity() {
         val send = data?.getQueryParameter("send")
         val protocol: MiniAppProtocol by inject()
 
+        protocol.saveLogListener("MiniApp1")
+
         setContent {
             MyMiniAppTheme {
                 Surface(
@@ -41,7 +43,8 @@ internal class MiniApp1Activity : ComponentActivity() {
                             intent.putExtra("receive", "BBTV")
                             setResult(Activity.RESULT_OK, intent)
                             finish()
-                            protocol.listener?.invoke("Back MiniApp1")
+//                            protocol.listener?.invoke("Back MiniApp1")
+                            protocol.saveLogListener("Back MiniApp1")
                         }) {
                             Text(text = "Back")
                         }

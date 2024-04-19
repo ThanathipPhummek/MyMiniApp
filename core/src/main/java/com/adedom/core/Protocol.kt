@@ -7,9 +7,11 @@ interface MiniAppProtocol {
     var listener: ((String?) -> Unit)?
     var defaultSetter: ((DefaultValue?) -> Unit)?
     val listDefault: List<DefaultValue>
+    val saveLog: List<String>
 
     fun setOnClickListener(listener: (String?) -> Unit)
     fun setDefaultCallback(defaultValue: DefaultValue?)
+    fun saveLogListener(log: String)
 }
 
 internal class MiniAppAdapter : MiniAppProtocol {
@@ -17,6 +19,7 @@ internal class MiniAppAdapter : MiniAppProtocol {
     override var listener: ((String?) -> Unit)? = null
     override var defaultSetter: ((DefaultValue?) -> Unit)? = null
     override var listDefault: MutableList<DefaultValue> = mutableListOf()
+    override val saveLog: MutableList<String> = mutableListOf()
 
     override fun setOnClickListener(listener: (String?) -> Unit) {
         this.listener = listener
@@ -26,6 +29,10 @@ internal class MiniAppAdapter : MiniAppProtocol {
         defaultValue?.let {
             this.listDefault.add(it)
         }
+    }
+
+    override fun saveLogListener(log: String) {
+        this.saveLog.add(log)
     }
 }
 

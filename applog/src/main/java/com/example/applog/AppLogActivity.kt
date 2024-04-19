@@ -1,25 +1,29 @@
-package com.adedom.miniapp2
+package com.example.applog
 
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.adedom.core.MiniAppProtocol
-import com.adedom.miniapp2.ui.theme.MyMiniAppTheme
+import com.example.applog.ui.theme.MyMiniAppTheme
 import org.koin.android.ext.android.inject
-import org.koin.compose.koinInject
 
-internal class MiniApp2Activity : ComponentActivity() {
+internal class AppLogActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +32,10 @@ internal class MiniApp2Activity : ComponentActivity() {
         val send = data?.getQueryParameter("send")
 
         val protocol: MiniAppProtocol by inject()
-        protocol.saveLogListener("MiniApp2")
+
+        protocol.saveLogListener("AppLog")
+
+        val item : List<String> = protocol.saveLog
 
         setContent {
             MyMiniAppTheme {
@@ -37,38 +44,26 @@ internal class MiniApp2Activity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Column {
-                        Greeting("Android : $send")
-//                        Greeting("Android : ${protocol.message}")
+                    Box(
+                        modifier = Modifier.fillMaxSize()
+                    ) {
+                        LazyColumn {
+                            items(item) { log ->
+                                Text(text = log, modifier = Modifier.padding(8.dp))
+                            }
+                        }
                         Button(onClick = {
                             val intent = Intent()
                             intent.putExtra("receive", "Ch7HD")
                             setResult(Activity.RESULT_OK, intent)
                             finish()
-//                            protocol.listener?.invoke("Back MiniApp2")
-                            protocol.saveLogListener("Back MiniApp2")
-                        }) {
+                            protocol.saveLogListener("back app log")
+                        }, modifier = Modifier.width(300.dp).align(Alignment.BottomCenter).padding(16.dp)) {
                             Text(text = "Back")
                         }
                     }
                 }
             }
         }
-    }
-}
-
-@Composable
-internal fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-internal fun GreetingPreview() {
-    MyMiniAppTheme {
-        Greeting("Android")
     }
 }
