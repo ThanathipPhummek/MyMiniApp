@@ -4,7 +4,9 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.widget.Toast
+import androidx.activity.compose.ManagedActivityResultLauncher
 import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -34,6 +36,7 @@ import androidx.compose.ui.unit.dp
 import com.adedom.core.DefaultValue
 import com.adedom.core.MiniAppProtocol
 import org.koin.compose.koinInject
+import org.koin.java.KoinJavaComponent
 
 @Composable
 fun MainApp() {
@@ -96,7 +99,8 @@ fun MainApp() {
                                 .clip(shape = RoundedCornerShape(8.dp))
                                 .background(Color.LightGray)
                                 .clickable {
-                                    protocol.sendMessage(defaultValue.deeplink ?: "")
+                                    protocol.sendMessage(defaultValue.appPath ?: "")
+                                    defaultValue.deeplink?.let { checkClick(it, launcher) }
                                 }
                                 .padding(8.dp)
                         ) {
@@ -147,6 +151,20 @@ fun MainApp() {
                 .padding(bottom = 16.dp, end = 8.dp)
                 .background(color = Color.White.copy(alpha = 0.0f))
         ) {
+        }
+    }
+}
+
+fun checkClick(deeplink: String, launcher: ManagedActivityResultLauncher<Intent, ActivityResult>) {
+    val protocol: MiniAppProtocol by KoinJavaComponent.inject(MiniAppProtocol::class.java)
+    val prevMessage: String? = null
+    while (true) {
+        val newMessage = protocol.message
+        if (newMessage != prevMessage) {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(deeplink))
+            launcher.launch(intent)
+            protocol.sendMessage("")
+            break
         }
     }
 }

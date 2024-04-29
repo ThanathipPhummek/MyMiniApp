@@ -17,9 +17,9 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        defaultValue1(this)
-        defaultValue2(this)
-        defaultValue3(this)
+        defaultValue1()
+        defaultValue2()
+        defaultValue3()
         setContent {
             MyMiniAppTheme {
                 Surface(

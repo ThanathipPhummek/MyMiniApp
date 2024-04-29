@@ -33,5 +33,6 @@ internal class AppAdapter : MiniAppProtocol, MainAppProtocol {
 data class DefaultValue(
     val icon: String?,
     val appName: String?,
+    val appPath: String?,
     val deeplink: String?
 )
