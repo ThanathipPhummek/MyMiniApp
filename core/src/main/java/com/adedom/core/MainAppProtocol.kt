@@ -11,5 +11,5 @@ interface MainAppProtocol {
     fun setOnClickListener(listener: (String?) -> Unit)
     fun setDefaultCallback(defaultValue: DefaultValue?)
     fun saveLogListener(log: String)
-    fun logCountListener(log: List<String>,path:String)
+    fun sendMessage(message:String)
 }

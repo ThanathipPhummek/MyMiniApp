@@ -1,5 +1,11 @@
 package com.adedom.core
 
+import android.content.Context
+
 interface MiniAppInterface {
-    fun open(path: String)
+    val listDefault: List<DefaultValue>
+    var message: String?
+    fun setDefaultCallback(defaultValue: DefaultValue?)
+    fun sendMessage(message:String)
+    fun initial(context: Context)
 }

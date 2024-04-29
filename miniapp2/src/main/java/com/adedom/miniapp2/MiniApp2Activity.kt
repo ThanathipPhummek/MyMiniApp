@@ -1,10 +1,13 @@
 package com.adedom.miniapp2
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Button
@@ -13,6 +16,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.adedom.core.MiniAppProtocol
 import com.adedom.miniapp2.ui.theme.MyMiniAppTheme
@@ -36,22 +40,32 @@ internal class MiniApp2Activity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Column {
-                        Greeting("Android : $send")
+                    Box(
+                        modifier = Modifier.fillMaxSize()
+                    ) {
+                        Image(modifier = Modifier.fillMaxSize(),painter = painterResource(id = R.drawable.ch7hd), contentDescription = "" )
+                        Column {
+//                            Greeting("Android : $send")
 //                        Greeting("Android : ${protocol.message}")
-                        Button(onClick = {
-                            val intent = Intent()
-                            intent.putExtra("receive", "Ch7HD")
-                            setResult(Activity.RESULT_OK, intent)
-                            finish()
+                            Button(onClick = {
+                                val intent = Intent()
+                                intent.putExtra("receive", "Ch7HD")
+                                setResult(Activity.RESULT_OK, intent)
+                                finish()
 //                            protocol.listener?.invoke("Back MiniApp2")
-                            protocol.saveLogListener("Back MiniApp2")
-                        }) {
-                            Text(text = "Back")
+                                protocol.saveLogListener("Back MiniApp2")
+                            }) {
+                                Text(text = "Back")
+                            }
                         }
                     }
                 }
             }
+        }
+    }
+    companion object {
+        fun open(context: Context) {
+            context.startActivity(Intent(context, MiniApp2Activity::class.java))
         }
     }
 }

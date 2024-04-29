@@ -1,5 +1,6 @@
 package com.adedom.miniapp3
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -29,14 +30,12 @@ internal class MiniApp3Activity : ComponentActivity(){
 
         setContent {
             MyMiniAppTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
                     Column {
                         Greeting("Android : $send")
-//                        Greeting("Android : ${protocol.message}")
                         Button(onClick = {
                             val intent = Intent()
                             intent.putExtra("receive", "Ch7HD")
@@ -51,7 +50,11 @@ internal class MiniApp3Activity : ComponentActivity(){
                 }
             }
         }
-
+    }
+    companion object {
+        fun open(context: Context) {
+            context.startActivity(Intent(context, MiniApp3Activity::class.java))
+        }
     }
 }
 

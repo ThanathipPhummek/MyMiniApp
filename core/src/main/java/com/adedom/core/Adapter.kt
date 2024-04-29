@@ -1,6 +1,6 @@
 package com.adedom.core
 
-internal class AppAdapter : MiniAppProtocol,MainAppProtocol {
+internal class AppAdapter : MiniAppProtocol, MainAppProtocol {
     override var logCount: Int? = null
     override var message: String? = null
     override var listener: ((String?) -> Unit)? = null
@@ -25,21 +25,8 @@ internal class AppAdapter : MiniAppProtocol,MainAppProtocol {
         this.saveLog.add(log)
     }
 
-    override fun logCountListener(log: List<String>,path:String) {
-        val countMiniApp1 = log.count { it == "MiniApp1" }
-        val countMiniApp2 = log.count { it == "MiniApp2" }
-        val countMiniApp3 = log.count { it == "MiniApp3" }
-        when (path) {
-            "miniapp1" -> {
-                this.logCount = countMiniApp1
-            }
-            "miniapp2" -> {
-                this.logCount = countMiniApp2
-            }
-            else -> {
-                this.logCount = countMiniApp3
-            }
-        }
+    override fun sendMessage(message: String) {
+        this.message = message
     }
 }
 
