@@ -48,13 +48,13 @@ internal class MiniApp1Activity : ComponentActivity() {
 //                            Text(text = "จำนวนการกด ${protocol.logCount}")
                             Button(onClick = {
                                 val intent = Intent()
-                                intent.putExtra("receive", "BBTV")
+                                intent.putExtra("receive", "GOODTIME RADIO")
                                 setResult(Activity.RESULT_OK, intent)
                                 finish()
 //                            protocol.listener?.invoke("Back MiniApp1")
                                 protocol.saveLogListener("Back MiniApp1")
                             }) {
-                                Text(text = "Back")
+                                Text(text = "${protocol.text}")
                             }
                         }
                     }

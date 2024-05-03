@@ -55,7 +55,7 @@ internal class MiniApp2Activity : ComponentActivity() {
 //                            protocol.listener?.invoke("Back MiniApp2")
                                 protocol.saveLogListener("Back MiniApp2")
                             }) {
-                                Text(text = "Back")
+                                Text(text = "${protocol.text}")
                             }
                         }
                     }

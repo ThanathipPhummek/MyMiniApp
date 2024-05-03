@@ -5,6 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Button
@@ -13,6 +15,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.adedom.core.MiniAppProtocol
 import com.adedom.miniapp3.ui.theme.MyMiniAppTheme
@@ -34,17 +37,20 @@ internal class MiniApp3Activity : ComponentActivity(){
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Column {
-                        Greeting("Android : $send")
-                        Button(onClick = {
-                            val intent = Intent()
-                            intent.putExtra("receive", "Ch7HD")
-                            setResult(RESULT_OK, intent)
-                            finish()
-//                            protocol.listener?.invoke("Back MiniApp3")
-                            protocol.saveLogListener("Back MiniApp3")
-                        }) {
-                            Text(text = "Back")
+                    Box(
+                        modifier = Modifier.fillMaxSize()
+                    ) {
+                        Image(modifier = Modifier.fillMaxSize(),painter = painterResource(id = R.drawable.bugaboo), contentDescription = "" )
+                        Column {
+                            Button(onClick = {
+                                val intent = Intent()
+                                intent.putExtra("receive", "BUGABOO")
+                                setResult(RESULT_OK, intent)
+                                finish()
+                                protocol.saveLogListener("Back MiniApp3")
+                            }) {
+                                Text(text = "${protocol.text}")
+                            }
                         }
                     }
                 }

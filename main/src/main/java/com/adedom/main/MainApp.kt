@@ -3,10 +3,9 @@ package com.adedom.main
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
+import android.util.Log
 import android.widget.Toast
-import androidx.activity.compose.ManagedActivityResultLauncher
 import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -15,6 +14,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -22,22 +22,36 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.OutlinedTextField
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.adedom.core.DefaultValue
+import com.adedom.core.MainAppProtocol
 import com.adedom.core.MiniAppProtocol
+import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.accompanist.pager.HorizontalPager
+import com.google.accompanist.pager.rememberPagerState
 import org.koin.compose.koinInject
-import org.koin.java.KoinJavaComponent
 
+@OptIn(ExperimentalPagerApi::class)
 @Composable
 fun MainApp() {
     val context = LocalContext.current
@@ -51,9 +65,16 @@ fun MainApp() {
             if (result.resultCode == Activity.RESULT_OK) {
                 val intent = result.data
                 val receive = intent?.getStringExtra("receive")
-//                Toast.makeText(context, receive, Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, receive, Toast.LENGTH_SHORT).show()
             }
         }
+
+    val pagerState = rememberPagerState(initialPage = 0)
+    var text by remember { mutableStateOf(TextFieldValue("")) }
+
+    val brush = Brush.horizontalGradient(
+        colors = listOf(Color(0xFFc016c8), Color(0xFFe577ea))
+    )
 
     Box(modifier = Modifier.fillMaxSize()) {
         LazyColumn(
@@ -87,42 +108,96 @@ fun MainApp() {
                 )
             }
             item {
-                Row(
+                Column(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 14.dp)
+                        .height(320.dp)
+                        .background(brush)
                 ) {
-                    item.forEach { defaultValue ->
-                        Spacer(modifier = Modifier.padding(horizontal = 2.dp))
-                        Column(
-                            modifier = Modifier
-                                .clip(shape = RoundedCornerShape(8.dp))
-                                .background(Color.LightGray)
-                                .clickable {
-                                    protocol.sendMessage(defaultValue.appPath ?: "")
-                                    defaultValue.deeplink?.let { checkClick(it, launcher) }
+                    Text(
+                        text = "สำหรับตุณ",
+                        Modifier
+                            .padding(top = 18.dp)
+                            .padding(start = 38.dp),
+                        fontSize = 10.sp,
+                        color = Color.White
+                    )
+                    Text(
+                        text = "แอปดีประจำเดือน",
+                        Modifier
+                            .padding(bottom = 28.dp)
+                            .padding(start = 38.dp),
+                        fontSize = 24.sp,
+                        color = Color.White
+                    )
+                    HorizontalPager(
+                        count = (item.size / 2) + (if (item.size % 2 == 0) 0 else 1),
+                        state = pagerState,
+                        modifier = Modifier
+                    ) { page ->
+                        Column(modifier = Modifier.fillMaxHeight()) {
+                            item.subList(page * 2, minOf((page * 2) + 2, item.size))
+                                .forEach { defaultValue ->
+                                    Row(Modifier.fillMaxWidth()) {
+                                        Spacer(modifier = Modifier.padding(16.dp))
+                                        Box(
+                                            Modifier
+                                                .height(90.dp)
+                                                .width(90.dp)
+                                                .padding(8.dp)
+                                                .clickable {
+                                                    protocol.sendMessage(defaultValue.appPath ?: "")
+                                                    protocol.sendText(text.text)
+                                                    defaultValue.deeplink?.let {
+                                                        checkClick(
+                                                            it,
+                                                            launcher
+                                                        )
+                                                    }
+                                                }
+                                                .clip(shape = RoundedCornerShape(16.dp))
+                                        ) {
+                                            LoadImage(
+                                                url = defaultValue.icon ?: "",
+                                                modifier = Modifier.fillMaxSize()
+                                            )
+                                        }
+                                        Column {
+                                            Text(
+                                                text = defaultValue.appName ?: "Default App Name",
+                                                fontSize = 18.sp,
+                                                modifier = Modifier.padding(
+                                                    start = 16.dp,
+                                                    top = 14.dp
+                                                ),
+                                                color = Color.White
+                                            )
+                                            Text(
+                                                text = defaultValue.appPath ?: "Default App Name",
+                                                fontSize = 12.sp,
+                                                modifier = Modifier.padding(
+                                                    start = 16.dp,
+                                                    top = 4.dp
+                                                ),
+                                                color = Color.White
+                                            )
+                                        }
+                                    }
                                 }
-                                .padding(8.dp)
-                        ) {
-                            Box(
-                                Modifier
-                                    .height(100.dp)
-                                    .width(90.dp)
-                            ) {
-                                LoadImage(
-                                    url = defaultValue.icon ?: "", modifier = Modifier
-                                        .fillMaxWidth()
-                                )
-                            }
-                            Text(
-                                text = defaultValue.appName ?: "Default App Name",
-                                modifier = Modifier.width(90.dp),
-                                textAlign = TextAlign.Center
-                            )
                         }
                     }
                 }
+                OutlinedTextField(
+                    value = text,
+                    label = { Text(text = "Enter Your Text") },
+                    onValueChange = { newText ->
+                        text = newText
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 24.dp),
+                )
             }
+
             item {
                 Image(
                     modifier = Modifier
@@ -141,7 +216,7 @@ fun MainApp() {
                         Uri.parse("bugaboo://app-log?send=APPLOG"),
                     )
                     launcher.launch(intent)
-                } catch (e:Exception) {
+                } catch (e: Exception) {
                     Toast.makeText(context, "something wrong", Toast.LENGTH_SHORT).show()
                 }
             },
@@ -154,51 +229,3 @@ fun MainApp() {
         }
     }
 }
-
-fun checkClick(deeplink: String, launcher: ManagedActivityResultLauncher<Intent, ActivityResult>) {
-    val protocol: MiniAppProtocol by KoinJavaComponent.inject(MiniAppProtocol::class.java)
-    val prevMessage: String? = null
-    while (true) {
-        val newMessage = protocol.message
-        if (newMessage != prevMessage) {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(deeplink))
-            launcher.launch(intent)
-            protocol.sendMessage("")
-            break
-        }
-    }
-}
-
-
-//            Button(
-//                onClick = {
-//                    protocol.sendMessage(defaultValue.deeplink?:"")
-//                    try {
-//                        defaultValue.appName?.let { appName ->
-//                            val intent = Intent(
-//                                Intent.ACTION_VIEW,
-//                                Uri.parse(defaultValue.deeplink),
-//                            )
-//                            launcher.launch(intent)
-//                        }
-//                    } catch (e:Exception) {
-//                        Toast.makeText(context, "something wrong", Toast.LENGTH_SHORT).show()
-//                    }
-//                },
-//                modifier = Modifier.padding(8.dp)
-//            ) {
-//                if (!defaultValue.icon.isNullOrBlank()) {
-//                    Box(
-//                        Modifier
-//                            .height(40.dp)
-//                            .width(40.dp)
-//                            .padding(4.dp)
-//                    ) {
-//                        LoadImage(
-//                            url = defaultValue.icon ?: "", modifier = Modifier
-//                                .fillMaxSize()
-//                        )
-//                    }
-//                }
-//                Text(defaultValue.appName ?: "Default App Name")
-//            }

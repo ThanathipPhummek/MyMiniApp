@@ -1,16 +1,12 @@
 package com.adedom.miniapp2
 
-import com.adedom.core.DefaultValue
 import com.adedom.core.MiniAppProtocol
-import org.koin.java.KoinJavaComponent.inject
 
-fun defaultValue2() {
-    val protocol: MiniAppProtocol by inject(MiniAppProtocol::class.java)
-    val newDefaultValue = DefaultValue(
-        icon = "https://fastly.picsum.photos/id/22/4434/3729.jpg?hmac=fjZdkSMZJNFgsoDh8Qo5zdA_nSGUAWvKLyyqmEt2xs0",
+fun defaultValue2(protocol: MiniAppProtocol) {
+    protocol.setDefaultCallback(
+        icon = "https://play-lh.googleusercontent.com/OEj7dn7JC75ti5pENMOUZ1pq9PvDONPx4FtYlDPTaELw8S1-pC-XXjB7lbwZZv6vXFw=w480-h960-rw",
         appName = "มินิแอพ 2",
         appPath = "miniapp2",
         deeplink = "bugaboo://mini-app-2?send=MINIAPP2"
     )
-    protocol.setDefaultCallback(newDefaultValue)
 }
