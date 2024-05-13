@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -44,7 +45,6 @@ internal class MiniApp1Activity : ComponentActivity() {
                     ) {
                         Image(modifier = Modifier.fillMaxSize(),painter = painterResource(id = R.drawable.goodtime), contentDescription = "")
                         Column {
-//                            Greeting("Android : $send")
 //                            Text(text = "จำนวนการกด ${protocol.logCount}")
                             Button(onClick = {
                                 val intent = Intent()
@@ -54,7 +54,7 @@ internal class MiniApp1Activity : ComponentActivity() {
 //                            protocol.listener?.invoke("Back MiniApp1")
                                 protocol.saveLogListener("Back MiniApp1")
                             }) {
-                                Text(text = "${protocol.text}")
+                                Text(text = protocol.getText())
                             }
                         }
                     }
@@ -66,21 +66,5 @@ internal class MiniApp1Activity : ComponentActivity() {
         fun open(context: Context) {
             context.startActivity(Intent(context, MiniApp1Activity::class.java))
         }
-    }
-}
-
-@Composable
-internal fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-internal fun GreetingPreview() {
-    MyMiniAppTheme {
-        Greeting("Android")
     }
 }

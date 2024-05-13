@@ -1,9 +1,10 @@
 package com.adedom.core
 
-internal class AppAdapter : MiniAppProtocol, MainAppProtocol {
+internal class MiniAppAdapter(
+    private val mainAppAdapter: MainAppProtocol
+) : MiniAppProtocol {
     override var logCount: Int? = null
     override var message: String? = null
-    override var text: String? = null
     override var listener: ((String?) -> Unit)? = null
     override var defaultSetter: ((DefaultValue?) -> Unit)? = null
     override var listDefault: MutableList<DefaultValue> = mutableListOf()
@@ -14,13 +15,7 @@ internal class AppAdapter : MiniAppProtocol, MainAppProtocol {
     }
 
     override fun setDefaultCallback(icon: String?, appName: String?,appPath:String?, deeplink: String?) {
-        val defaultValue = DefaultValue(icon, appName, appPath, deeplink)
-        defaultValue?.let {
-            if(it.icon?.isNotEmpty() == true &&
-                it.appName?.isNotEmpty() == true &&
-                it.deeplink?.isNotEmpty() == true)
-                this.listDefault.add(it)
-        }
+        mainAppAdapter.setDefaultCallback(icon, appName, appPath, deeplink)
     }
 
     override fun saveLogListener(log: String) {
@@ -28,11 +23,11 @@ internal class AppAdapter : MiniAppProtocol, MainAppProtocol {
     }
 
     override fun sendMessage(message: String) {
-        this.message = message
+        this.message = mainAppAdapter.message
     }
 
-    override fun sendText(text: String) {
-        this.text = text
+    override fun getText(): String{
+        return mainAppAdapter.text?:""
     }
 }
 

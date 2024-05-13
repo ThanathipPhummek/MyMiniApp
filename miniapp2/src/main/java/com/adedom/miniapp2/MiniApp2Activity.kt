@@ -18,11 +18,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import com.adedom.core.MiniAppInterface
 import com.adedom.core.MiniAppProtocol
 import com.adedom.miniapp2.ui.theme.MyMiniAppTheme
 import org.koin.android.ext.android.inject
 
-internal class MiniApp2Activity : ComponentActivity() {
+internal class MiniApp2Activity : ComponentActivity(), MiniAppInterface {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +36,6 @@ internal class MiniApp2Activity : ComponentActivity() {
 
         setContent {
             MyMiniAppTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
@@ -45,8 +45,6 @@ internal class MiniApp2Activity : ComponentActivity() {
                     ) {
                         Image(modifier = Modifier.fillMaxSize(),painter = painterResource(id = R.drawable.ch7hd), contentDescription = "" )
                         Column {
-//                            Greeting("Android : $send")
-//                        Greeting("Android : ${protocol.message}")
                             Button(onClick = {
                                 val intent = Intent()
                                 intent.putExtra("receive", "Ch7HD")
@@ -55,7 +53,7 @@ internal class MiniApp2Activity : ComponentActivity() {
 //                            protocol.listener?.invoke("Back MiniApp2")
                                 protocol.saveLogListener("Back MiniApp2")
                             }) {
-                                Text(text = "${protocol.text}")
+                                Text(text = protocol.getText())
                             }
                         }
                     }
@@ -68,20 +66,12 @@ internal class MiniApp2Activity : ComponentActivity() {
             context.startActivity(Intent(context, MiniApp2Activity::class.java))
         }
     }
-}
 
-@Composable
-internal fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
+    override fun open() {
+        TODO("Not yet implemented")
+    }
 
-@Preview(showBackground = true)
-@Composable
-internal fun GreetingPreview() {
-    MyMiniAppTheme {
-        Greeting("Android")
+    override fun close() {
+        TODO("Not yet implemented")
     }
 }

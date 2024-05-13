@@ -3,7 +3,6 @@ package com.adedom.main
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -23,11 +22,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -45,7 +41,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.adedom.core.DefaultValue
 import com.adedom.core.MainAppProtocol
-import com.adedom.core.MiniAppProtocol
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
@@ -55,7 +50,7 @@ import org.koin.compose.koinInject
 @Composable
 fun MainApp() {
     val context = LocalContext.current
-    val protocol = koinInject<MiniAppProtocol>()
+    val protocol = koinInject<MainAppProtocol>()
 
     val item: List<DefaultValue> = protocol.listDefault
     protocol.saveLogListener("MainApp")

@@ -49,7 +49,7 @@ internal class MiniApp3Activity : ComponentActivity(){
                                 finish()
                                 protocol.saveLogListener("Back MiniApp3")
                             }) {
-                                Text(text = "${protocol.text}")
+                                Text(text = protocol.getText())
                             }
                         }
                     }
@@ -61,21 +61,5 @@ internal class MiniApp3Activity : ComponentActivity(){
         fun open(context: Context) {
             context.startActivity(Intent(context, MiniApp3Activity::class.java))
         }
-    }
-}
-
-@Composable
-internal fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-internal fun GreetingPreview() {
-    MyMiniAppTheme {
-        Greeting("Android")
     }
 }
